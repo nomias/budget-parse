@@ -7,8 +7,9 @@ tmdb.REQUESTS_TIMEOUT=10
 
 df=pd.read_csv('imdb_top_1000.csv')
 list=df['Series_Title']
-for n in list:
-    name=n
+i=1
+for i in range(1000):
+    name=list[i]
     year=df.loc[list==name,'Released_Year'].values
     #print(year)
     search=tmdb.Search()
@@ -18,15 +19,13 @@ for n in list:
         year2=s['release_date'].split('-',1)[0]
         #print(year2)
         id=s['id']
-        if (name==title) & (year==year2).all():
+        if (name==title):
             response=tmdb.Movies(id).info()
             budget=response['budget']
-            with open('budgets2.csv','a',newline='') as file:
+            with open('budgets.csv','a',newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow([title,int(budget)])
-
-
-
+    i+=1
 #movie=tmdb.Movies(603)
 #response=movie.info()
 #print(movie.budget)
