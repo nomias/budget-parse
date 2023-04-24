@@ -9,21 +9,7 @@ imdbTitles=imdb['Series_Title']
 movieTitles=movies['original_title']
 
 for imdbTit in imdbTitles:
-    #print(imdbTit)
-    #imdbYearArr=imdb.loc[imdbTitles==imdbTit,'Released_Year'].values
-    #imdbYear=imdbYearArr[0]
-    #print(imdbTit,imdbYear)
     for movieTit in movieTitles:
-        #numpy.ndarray
-        #movieYear=0
-        #movieYearArr=movies.loc[movieTitles==imdbTit,'release_date'].values
-        #if isinstance(movieYearArr,(np.ndarray)):
-        #    movieYear=int(movieYearArr[0].split('-',1)[0])
-        #else:
-        #    movieYear=movieYearArr
-        #print(movieTit,imdbTit,movieYear)
-        #movieYear=int(movieYearArr[0].split('-',1)[0])
-        #print(movieTit,movieYear)
         if (imdbTit==movieTit):
             print("success")
             budget=movies.loc[movieTitles==movieTit,'budget'].values
@@ -42,6 +28,6 @@ for imdbTit in imdbTitles:
             target=0
             if diff>1.5:
                 target=1
-            with open('budgets2.csv','a',newline='') as file:
+            with open('budgets.csv','a',newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow([movieTit,budget,revenue,profit,diff,target])
