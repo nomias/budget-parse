@@ -27,8 +27,21 @@ for imdbTit in imdbTitles:
         if (imdbTit==movieTit):
             print("success")
             budget=movies.loc[movieTitles==movieTit,'budget'].values
+            if budget.any():
+                budget=int(budget[0])
+            else:
+                budget=int(budget)
             revenue=movies.loc[movieTitles==movieTit,'revenue'].values
-            profit=revenue-int(budget.any())
+            revenue=int(revenue[0])
+            profit=revenue-budget
+            diff=0
+            if budget>0:
+                diff=profit/budget
+            else:
+                diff=0
+            target=0
+            if diff>1.5:
+                target=1
             with open('budgets2.csv','a',newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow([movieTit,budget,revenue,profit])
+                writer.writerow([movieTit,budget,revenue,profit,diff,target])
